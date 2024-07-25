@@ -1,7 +1,7 @@
 package com.example.consumer.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.consumer.entity.City;
+import com.example.consumer.entity.CangKu;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -10,10 +10,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author wgy
- * @since 2024-07-18
+ * @since 2024-07-24
  */
-public interface ICityService extends IService<City> {
+public interface ICangKuService extends IService<CangKu> {
 
+    JSONObject getList();
 
+    JSONObject getListByPage();
 
 }
