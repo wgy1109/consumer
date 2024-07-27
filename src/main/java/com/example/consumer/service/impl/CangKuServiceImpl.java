@@ -1,5 +1,6 @@
 package com.example.consumer.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -43,6 +44,8 @@ public class CangKuServiceImpl extends ServiceImpl<CangKuMapper, CangKu> impleme
         page.setSize(5);
         page.setCurrent(2);
         List<CangKu> data = cangKuMapper.selectList(page, null);
+//        ObjectUtil.cloneByStream(data);
+
         page.setRecords(data);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", 200);
