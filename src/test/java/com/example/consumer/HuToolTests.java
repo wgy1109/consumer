@@ -3,6 +3,9 @@ package com.example.consumer;
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.core.util.HexUtil;
+import cn.hutool.core.util.StrUtil;
 import com.example.consumer.config.CustomConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -15,6 +18,9 @@ import java.util.Date;
 @SpringBootTest
 @Slf4j
 public class HuToolTests {
+    
+    
+    // 深克隆  ObjectUtil.cloneByStream(obj)
 
     /**
      * 类型转换
@@ -27,6 +33,9 @@ public class HuToolTests {
         Assert.assertEquals("Custom: 445566", result);
     }
 
+    /**
+     * 验证日期
+     */
     @Test
     public void testHuToolsDate() {
         Date date = DateUtil.date();
@@ -47,8 +56,41 @@ public class HuToolTests {
         DateTime lastHour = DateUtil.offsetHour(date4, -2);
         log.info(lastYear + "|" + lastMonth + "|" + lastDay + "|" + lastHour);
 
-
+        int year = DateUtil.year(date);
+        int month = DateUtil.month(date);
+        int day = DateUtil.dayOfMonth(date);
+        log.info("year: " + year + " month: " + month + " day: " + day);
 
     }
 
+    @Test
+    public void testStr() {
+        String fileName = StrUtil.removeSuffix("pretty_girl.jpg", ".jpg");
+        log.info(fileName);
+
+        String str = "abcdefgh";
+        String strSub1 = StrUtil.sub(str, 2, 3); //strSub1 -> c
+        String strSub2 = StrUtil.sub(str, 2, -3); //strSub2 -> cde
+        String strSub3 = StrUtil.sub(str, 3, 2); //strSub2 -> c
+        String strSub01 = StrUtil.sub(str, 2,  -1 ); //strSub1 -> cdefg
+        log.info(strSub1 + "|" + strSub2 + "|" + strSub3 + "|" + strSub01);
+
+        String template = "{}爱{}，就像老鼠爱大米";
+        String str2 = StrUtil.format(template, "我", "你"); //str -> 我爱你，就像老鼠爱大米
+        log.info(str2);
+
+    }
+
+    @Test
+    public void testHex() {
+        String str = "我是一个字符串";
+
+        String hex = HexUtil.encodeHexStr(str, CharsetUtil.CHARSET_UTF_8);
+        //hex是：
+        //e68891e698afe4b880e4b8aae5ad97e7aca6e4b8b2
+        String decodedStr = HexUtil.decodeHexStr(hex);
+        //解码后与str相同
+        log.info(str + " _ " + decodedStr + " _ " + hex);
+
+    }
 }
