@@ -1,16 +1,21 @@
 package com.example.consumer;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.consumer.dto.EmployeeDTO;
 import com.example.consumer.entity.City;
 import com.example.consumer.entity.Employee;
+import com.example.consumer.entity.EmployeeVal;
 import com.example.consumer.entity.User;
 import com.example.consumer.mapper.CityMapper;
 import com.example.consumer.mapper.EmployeeMapper;
+import com.example.consumer.mapper.EmployeeValMapper;
 import com.example.consumer.mapper.UserMapper;
 import com.example.consumer.service.EmployeeService;
 import com.example.consumer.service.ICityService;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -41,6 +47,9 @@ class ConsumerApplicationTests {
 
 	@Autowired
 	private CityMapper cityMapper;
+
+	@Autowired
+	private EmployeeValMapper employeeValMapper;
 
 	// 查询
 	@Test
@@ -233,7 +242,21 @@ class ConsumerApplicationTests {
 		QueryWrapper<Employee> queryWrapper=new QueryWrapper<>();
 		queryWrapper.gt("age",24);
 		List<Employee> employeeList = employeeService.list(queryWrapper);
+		for(Employee e : employeeList) {
+			QueryWrapper<EmployeeVal> q2 = new QueryWrapper<>();
+			q2.gt("emp_id",e.getEmpId());
+			List<EmployeeVal> employeeValList = employeeValMapper.selectList(q2);
+			e.setEmployeeValList(employeeValList);
+		}
+
+
+
 		employeeList.forEach(System.out::println);
+
+		List<EmployeeDTO> dtoList = BeanUtil.copyToList(employeeList, EmployeeDTO.class);
+
+		dtoList.forEach(System.out::println);
+
 	}
 
 	@Test

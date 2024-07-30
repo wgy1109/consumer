@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -32,5 +34,8 @@ public class Employee {
     // 当表中没有 remark时，忽略字段
     @TableField(exist = false)
     private String remark;
+
+    @TableField(exist = false)
+    private List<EmployeeVal> employeeValList;
 
 }

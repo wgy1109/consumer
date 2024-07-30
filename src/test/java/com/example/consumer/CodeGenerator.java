@@ -24,7 +24,7 @@ public class CodeGenerator {
     public static void mode1() {
         FastAutoGenerator.create(url, username, password)
                 .globalConfig(builder -> {
-                    builder.author("wgy") // 设置作者
+                    builder.author("wangguangyuan") // 设置作者
 //                            .enableSwagger() // 开启 swagger 模式
                             .outputDir("D:\\code\\mytest\\codeGenerator"); // 指定输出目录
                 })
@@ -45,8 +45,8 @@ public class CodeGenerator {
                                 .pathInfo(Collections.singletonMap(OutputFile.xml, "D:\\code\\mytest\\codeGenerator")) // 设置mapperXml生成路径
                 )
                 .strategyConfig(builder ->
-                        builder.addInclude("cang_ku") // 设置需要生成的表名
-//                                .addTablePrefix("t_", "c_") // 设置过滤表前缀
+                        builder.addInclude("employee_val") // 设置需要生成的表名
+                                .addTablePrefix("wms_") // 设置过滤表前缀
 
                 )
                 .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板

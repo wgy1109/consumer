@@ -6,14 +6,21 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.HexUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.consumer.config.CustomConverter;
+import com.example.consumer.entity.Employee;
+import com.example.consumer.entity.OutboundApplyNote;
+import com.example.consumer.service.IOutboundApplyNoteService;
+import com.example.consumer.service.impl.OutboundApplyNoteServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @SpringBootTest
 @Slf4j
@@ -92,5 +99,16 @@ public class HuToolTests {
         //解码后与str相同
         log.info(str + " _ " + decodedStr + " _ " + hex);
 
+    }
+
+    @Autowired
+    private IOutboundApplyNoteService outboundApplyNoteService;
+
+    // 查询
+    @Test
+    void contextLoads() {
+        QueryWrapper<OutboundApplyNote> queryWrapper=new QueryWrapper<>();
+        List<OutboundApplyNote> applyNoteList = outboundApplyNoteService.list(queryWrapper);
+        applyNoteList.forEach(System.out::println);
     }
 }

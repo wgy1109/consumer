@@ -49,7 +49,7 @@ public class PachongTests {
     @Test
     void JsoupTest() {
         try {
-//            String url = "https://b.lenovo.com.cn/";
+            String url = "https://b.lenovo.com.cn/";
 
 
 
